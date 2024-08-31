@@ -1,14 +1,18 @@
+//Luis Gustavo Melo Freire
+//1 Questao inicializada em 19:30 letra a b c terminadas em 20:13, depois de uma pausa voltei para tentar fazer a de BCD so consegui terminar de 22:00, que foi quando criei o github e fiz 1 commit
+//2 Questão inicalizada em 22:00, terminada em 22:30,
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-// Declarações das funções (protótipos)
 void converterParaBinario(int num);
 void converterParaOctal(int num);
 void converterParaHexadecimal(int num);
 void converterParaBCD(int num);
+void converterParaComplemento2(int num);
 
-// Função principal
 int main() {
     int num, opcao;
 
@@ -21,7 +25,8 @@ int main() {
     printf("2. Converter para Octal\n");
     printf("3. Converter para Hexadecimal\n");
     printf("4. Converter para BCD\n");
-    printf("Digite a opção desejada (1-4): ");
+    printf("5. Converter para Complemento a 2 (16 bits)\n");
+    printf("Digite a opção desejada (1-5): ");
     scanf("%d", &opcao);
 
     switch(opcao) {
@@ -37,6 +42,9 @@ int main() {
         case 4:
             converterParaBCD(num);
             break;
+        case 5:
+        converterParaComplemento2(num); 
+        break;
         default:
             printf("Opção inválida!\n");
             break;
@@ -45,7 +53,6 @@ int main() {
     return 0;
 }
 
-// Função para converter o número para binário
 void converterParaBinario(int num) {
     printf("Passo 1: Convertendo %d para binário:\n", num);
     printf("Dividindo sucessivamente %d por 2 e anotando os restos:\n", num);
@@ -67,7 +74,6 @@ void converterParaBinario(int num) {
     printf("\n");
 }
 
-// Função para converter o número para octal
 void converterParaOctal(int num) {
     printf("Passo 2: Converte %d para octal:\n", num);
     printf("Dividindo sucessivamente o %d por 8 e anotando os restos:\n", num);
@@ -94,7 +100,6 @@ void converterParaOctal(int num) {
     printf("\n");
 }
 
-// Função para converter o número para hexadecimal
 void converterParaHexadecimal(int num) {
     printf("Passo 3: Converte %d para hexadecimal:\n", num);
     printf("Dividindo sucessivamente por 16 e anotando os restos:\n");
@@ -125,7 +130,6 @@ void converterParaHexadecimal(int num) {
     printf("\n");
 }
 
-// Função para converter o número para BCD
 void converterParaBCD(int num) {
     printf("Passo 4: Converte %d para BCD:\n", num);
     printf("Convertendo cada dígito do número para sua representação BCD:\n");
@@ -135,7 +139,6 @@ void converterParaBCD(int num) {
         return;
     }
 
-    // Encontrar o número de dígitos
     int temp = num;
     int numDigits = 0;
     while (temp > 0) {
@@ -143,7 +146,6 @@ void converterParaBCD(int num) {
         temp /= 10;
     }
 
-    // Array para armazenar os dígitos
     int digits[numDigits];
     int i = 0;
     while (num > 0) {
@@ -152,7 +154,6 @@ void converterParaBCD(int num) {
         i++;
     }
 
-    // Imprimir os dígitos em BCD
     printf("Número em BCD: ");
     for (int j = i - 1; j >= 0; j--) {
         int digit = digits[j];
@@ -162,6 +163,23 @@ void converterParaBCD(int num) {
         if (j > 0) {
             printf(" ");
         }
+    }
+    printf("\n");
+}
+
+void converterParaComplemento2(int num) {
+    printf("Passo 5: Converte %d para complemento a 2 (16 bits):\n", num);
+
+    int bits = 16;
+    unsigned short valor = num;
+
+    if (num < 0) {
+        valor = (unsigned short)(~(-num) + 1);
+    }
+
+    printf("Número em complemento a 2 (16 bits): ");
+    for (int i = bits - 1; i >= 0; i--) {
+        printf("%d", (valor >> i) & 1);
     }
     printf("\n");
 }
